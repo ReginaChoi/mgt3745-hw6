@@ -4,12 +4,18 @@
 
 ## Feature
 
-**Team repository:** <URL of your team repository>
-**Spec provenance:** copied from commit `<full commit hash>` on <YYYY-MM-DD>
+**Team repository:** [Team Beta Repo](https://github.com/Kcornett533/mgt3745-team-beta)
+**Spec provenance:** copied from commit d3c4267fabcf4433c96778256640c3a07a5fd97b on 2026-10-22
 
 **Feature:** <ID and name from your team's FEATURES.md>
 
-<Paste the feature's EARS rows here, unchanged. At least three rows, including at least one IF row.>
+### Feature F-02: Strict Verification Schema & Error Gate (Must-be)
+*Traces to: USERS.md (JOB-03)*
+
+- **Ubiquitous:** The system shall enforce complete schema validation on both client and edge server before committing any candidate verification record to persistent storage, restricting payload attributes strictly to candidate name, accredited degree discipline, graduation year, work authorization status, and coursework artifact URL.
+- **Event-driven:** When an intake payload contains missing, null, or empty fields, the edge Worker shall reject the request with HTTP 400 Bad Request and return a descriptive JSON error (`{"error": "Missing required verification fields"}`).
+- **State-driven:** While an error state is active, the client UI shall render the error message visibly in the status element using `textContent` and retain previously entered data in form fields.
+- **Unwanted-behavior (IF):** If a user attempts to submit the form with any required compliance field empty, then the system shall halt network submission and display an inline warning identifying the missing field.
 
 ## See It Work
 

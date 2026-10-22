@@ -117,3 +117,17 @@ flowchart TD
 ## Where the Stakes Disagree
 
 - **Candidate Artifact Friction vs. Recruiter Triage Speed:** Regina predicts candidates will struggle to supply tangible artifact evidence due to limited internship experience. Kenneth predicts that as long as the intake rules are deterministic, recruiters will triage applicants in under 30 seconds regardless of artifact depth. If candidates cannot identify evidence, recruiter triage may stall on incomplete inputs rather than speed up.
+
+## Prediction Stake: Regina Choi (HW6 F-02 Builder Comparison)
+
+**Tight prediction:** I predict that Bolt.new will satisfy at least 3 of the 4 F-02 EARS requirements, and Google AI Studio will also satisfy at least 3 of the 4 requirements.
+
+**Loose prediction:** I think the two builders may handle missing fields differently. One may show a warning in the browser but fail to enforce the same validation on the server.
+
+**Open question:** Will both builders return the required HTTP 400 response with the exact JSON error when a required field is missing, or will one only display a message in the interface?
+
+**What would support my prediction:** Testing shows that each builder meets at least 3 of the 4 F-02 requirements, with evidence from the generated code and test results.
+
+**What would contradict my prediction:** Either builder meets fewer than 3 requirements, or both builders handle missing fields in the same way and enforce the requirements differently than I expected.
+
+**When to check:** After testing both generated builds against the same four F-02 EARS requirements.
