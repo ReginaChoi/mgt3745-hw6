@@ -21,7 +21,7 @@
 
 | bolt.new | AI Studio |
 |---|---|
-| ![bolt build](docs/img/bolt.png) | ![AI Studio build](docs/img/aistudio.png) |
+| ![Bolt build](docs/img/bolt.png) | ![AI Studio build](docs/img/aistudio.png) |
 
 <Replace the two images above with your own screenshots, or one side-by-side GIF.>
 
