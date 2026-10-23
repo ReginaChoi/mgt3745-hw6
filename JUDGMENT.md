@@ -9,17 +9,21 @@ The Unwanted-behavior row and the State-driven row of F-02, plus two rules from 
 1. Open `context/FEATURES.md` and read Feature F-02 and the Exclusions list. Open `context/ARCHITECTURE.md` and read ADR-001's Decision.
 2. Open each build's screenshots in `docs/img/` (listed below) and each build's source in `builds/bolt.zip` and `builds/aistudio.zip`.
 3. Answer each question below with Yes or No, using only what is in those files. If a file does not show something, answer No.
-4. Write one short reason per answer. Do not look at the "You" column in this file, COMPARISON.md, or EVALS.md until you are done.
+4. Write one short reason per answer.
 
 ## Evidence Given to the Second Grader
 
 - `context/FEATURES.md`, `context/ARCHITECTURE.md`, `context/STANDARDS.md`
 - `prompts/PROMPT.md`
-- `builds/bolt.zip` and `builds/aistudio.zip`
+- The unzipped contents of `builds/bolt.zip` and `builds/aistudio.zip`
 - `docs/img/bolt.png`, `docs/img/bolt-form.png`, `docs/img/bolt-crash.png`
 - `docs/img/aistudio.png`, `docs/img/aistudio-missing-fields.png`, `docs/img/aistudio-null-fields.png`, `docs/img/aistudio-extra-attributes.png`, `docs/img/aistudio-form-warning.png`
 
-**Second grader:** Claude (claude.ai, Claude Sonnet 5.5). It had also helped write COMPARISON.md and the first draft of the "You" column, so it was not blind to my answers. It was asked to grade again from the files. I am noting that here because it limits what the agreement rate means.
+Nothing else. The grader did not get this file, COMPARISON.md, EVALS.md, the README, or any summary from me.
+
+**Second grader:** a separate Claude session (Claude Sonnet 5.5) with no memory of this project. It did not help build or write anything here, so it is blind to my answers. It is still an AI, so it can share blind spots with the Claude that helped me write my own answers. See [docs/DDR-004.md](docs/DDR-004.md).
+
+An earlier first attempt used the same Claude chat that had helped write COMPARISON.md. It agreed on 12 of 12, but it had seen my answers, so I threw that result out and redid the grading with the blind session above.
 
 ## Results
 
@@ -27,7 +31,7 @@ The Unwanted-behavior row and the State-driven row of F-02, plus two rules from 
 |---|---|---|---|
 | J1 | bolt: after the user submits the empty form, is the form still on screen along with a message? | N | N |
 | J2 | AI Studio: after the user submits the empty form, is the form still on screen along with a message? | Y | Y |
-| J3 | bolt: does the warning text say which field is missing? | Y | Y |
+| J3 | bolt: does the warning text say which field is missing? | Y | N |
 | J4 | AI Studio: does the warning text say which field is missing? | Y | Y |
 | J5 | bolt: is a warning shown next to each empty field? | N | N |
 | J6 | AI Studio: is a warning shown next to each empty field? | Y | Y |
@@ -38,28 +42,24 @@ The Unwanted-behavior row and the State-driven row of F-02, plus two rules from 
 | J11 | bolt: does it use the Cloudflare Worker and D1 decision in ADR-001? | N | N |
 | J12 | AI Studio: does it use the Cloudflare Worker and D1 decision in ADR-001? | N | N |
 
-**Agreement rate:** 12 of 12, 100%
+**Agreement rate:** 11 of 12, 92%
 
 ## Disagreements
 
-None. I did not disagree with the second grader on any item. That is weak evidence, because the second grader had seen my comparison. A grader who had not would be a better check, and I did not have time to get one.
+**J3 (bolt, does the warning text say which field is missing).** I said Yes because the code builds the message "Missing required field: <field name>". The grader said No because the page crashes, so no message ever reaches the screen, and no screenshot shows one. The grader's reading is fair: a message nobody can see does not tell the user anything. I left my answer as it was, because the question asks about the warning text and the code does name the field. The row scores in COMPARISON.md already treat bolt's warning as broken, so nothing changes there.
 
-Things I expected might cause a split: J1 depends on whether the grader trusts `bolt-crash.png` or the code, since the code looks like it works and the screenshot shows it does not. J3 for bolt is answered from the message text in the code even though the page never shows it. J7 is about the code, not the screen, for the same reason.
+Other items that could have split but did not: J1 depends on trusting `bolt-crash.png` over the code, and J7 is about the code, not the screen.
 
-## Grader 2 prompt
+## Grader prompt
 
 I gave this to the second grader along with the files above and nothing else.
 
 ```text
-You are grading two builds of the same feature for MGT 3745 HW6. I am giving you
-the project files and screenshots listed below. Use only those. If something is
-not shown in the files, answer No.
+You are grading two builds of the same feature for a class assignment. All files are in /tmp/claude-0/grader (read only; do not look anywhere else on the filesystem). Use only those files. If something is not shown in the files, answer No.
 
-Read Feature F-02 and the Exclusions list in context/FEATURES.md, and the
-Decision in ADR-001 in context/ARCHITECTURE.md. The two builds are
-builds/bolt.zip and builds/aistudio.zip, with screenshots in docs/img/.
+Read Feature F-02 and the Exclusions list in context/FEATURES.md, and the Decision in ADR-001 in context/ARCHITECTURE.md. The two builds are in builds/bolt/ and builds/aistudio/. Screenshots are in docs/img/ (view them with the Read tool). The prompt both builders received is prompts/PROMPT.md.
 
-Answer these 12 questions with Yes or No and one short reason each.
+Answer these 12 questions with Yes or No and one short reason each (cite the file or screenshot).
 
 J1  bolt: after the user submits the empty form, is the form still on screen along with a message?
 J2  AI Studio: after the user submits the empty form, is the form still on screen along with a message?
@@ -74,5 +74,5 @@ J10 AI Studio: did it add screens, endpoints, or features that F-02 does not ask
 J11 bolt: does it use the Cloudflare Worker and D1 decision in ADR-001?
 J12 AI Studio: does it use the Cloudflare Worker and D1 decision in ADR-001?
 
-Return a numbered list from J1 to J12.
+Return a numbered list J1 to J12, each starting with Yes or No, then the reason. Nothing else.
 ```

@@ -4,7 +4,7 @@
 
 Committed before either builder was opened. Do not edit these predictions after the commit; resolve them beneath.
 
-First committed in this repository's `context/EVALS.md` under "Prediction Stake: Regina Choi (HW6 F-02 Builder Comparison)", in the commit "record hw6 prediction stake before builder runs" {{cf4c1a5}}, {{Thu Oct 22 20:24:39 2026 +0000}}. That commit comes before the commits that add the prompt and the builder outputs. The text below is copied from there without changes.
+First committed in this repository's `context/EVALS.md` under "Prediction Stake: Regina Choi (HW6 F-02 Builder Comparison)", in the commit "Record HW6 prediction stake before builder runs" (commit cf4c1a5, Thu Oct 22 20:24:39 2026 +0000). That commit comes before the commits that add the prompt and the builder outputs. The text below is copied from there without changes.
 
 ### Tight (a count)
 
@@ -28,6 +28,8 @@ Will both builders return the required HTTP 400 response with the exact JSON err
 
 Most frequent first. Your top row is the first finding in COMPARISON.md.
 
+Order: the top row is ranked by how badly it breaks the feature, not by raw count. The inline styles row has the highest raw count (120) but breaks nothing, so it sits lower.
+
 How I counted: for a bug in one build I counted the places in that build's code where it happens. For something both builds did, I counted the builders. The unit is in the Frequency column.
 
 | Error | Builder | Frequency | EARS row | Evidence |
@@ -38,5 +40,5 @@ How I counted: for a bug in one build I counted the places in that build's code 
 | React and Tailwind with inline `style` attributes, which STANDARDS.md (Code 2) does not allow | both | 2 builders (12 inline styles in bolt, 108 in AI Studio) | none directly | `grep -c 'style={{' src/App.tsx` in each build |
 | Database policies let the anonymous role UPDATE and DELETE rows, which FEATURES.md excludes | bolt | 2 policies (`anon_update_cv`, `anon_delete_cv`) | Exclusions | migration file in bolt.zip |
 | The only warning is one message naming the first empty field, not a warning at each field | bolt | 1 (`validateClient` returns on the first empty field, App.tsx line 42) | Unwanted-behavior | `builds/bolt.zip` `project/src/App.tsx` |
-| Download contained a `.env` with the Supabase project URL and anon key | bolt | 1 file | none | `project/.env` in the original bolt.zip |
+| Download contained a `.env` with the Supabase project URL and anon key. I removed it from the zip, but it was committed once (commit 7068df4) and stays in git history | bolt | 1 file | none | `project/.env` in the original bolt.zip |
 | The 400 body has extra keys and other rejections use different error strings than the one the spec gives | AI Studio | 1 handler (`server.ts` lines 135 to 230) | Event-driven | `evals/shared.test.js` diagnostic output |

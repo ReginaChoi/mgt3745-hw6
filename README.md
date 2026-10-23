@@ -1,7 +1,5 @@
 # HW6: Two Builders, One Specification
 
-> Replace every line in angle brackets. A README that still carries template placeholders loses points.
-
 ## Feature
 
 **Team repository:** [Team Beta Repo](https://github.com/Kcornett533/mgt3745-team-beta)
@@ -32,7 +30,7 @@ More screenshots are in [docs/img/](docs/img/).
 
 ## Status
 
-bolt.new satisfied 2 of the 4 EARS rows (State-driven fails, Unwanted-behavior is partial because its page crashes). AI Studio satisfied 4 of 4 but built a lot the feature did not ask for, and neither build uses our Cloudflare Worker and D1 stack. I recommend bolt.new for Phase 2 with a person fixing the status element, because its server logic is small and ports to a Worker easily (weighted 70 to 54 in [COMPARISON.md](COMPARISON.md)).
+bolt.new satisfied 2 of the 4 EARS rows (State-driven fails, Unwanted-behavior is partial because its page crashes). AI Studio satisfied 4 of 4 but built a lot the feature did not ask for, and neither build uses our Cloudflare Worker and D1 stack. I recommend bolt.new for Phase 2 with a person fixing the status element, because its server logic is small and ports to a Worker easily (weighted 62 to 58 in [COMPARISON.md](COMPARISON.md), a close call that flips if the team weights spec fit higher).
 
 I did not do the Gemini proxy step. F-02 has no AI behavior, so the `proxy/` folder is unchanged and there is no deployed Worker for this assignment.
 
@@ -52,16 +50,17 @@ This runs `evals/shared.test.js`, one `node:test` file that sends the same input
 - [prompts/PROMPT.md](prompts/PROMPT.md): the exact input both builders received
 - [builds/](builds/): bolt.zip and aistudio.zip
 - [evals/](evals/): shared test and the two copied implementations
-- [docs/DDR-001.md](docs/DDR-001.md) (bolt.new), [docs/DDR-002.md](docs/DDR-002.md) (AI Studio), [docs/DDR-003.md](docs/DDR-003.md) (Claude, for evals and write-up)
-- Team issue documenting F-02 specification and acceptance-test clarifications: [Issue #18](https://github.com/Kcornett533/mgt3745-team-beta/issues/18)
+- [docs/DDR-001.md](docs/DDR-001.md) (bolt.new), [docs/DDR-002.md](docs/DDR-002.md) (AI Studio), [docs/DDR-003.md](docs/DDR-003.md) (Claude, for evals and write-up), [docs/DDR-004.md](docs/DDR-004.md) (Claude, blind second grader)
+- Team issue proposing F-02 changes, with the EARS rewording in a comment: [Issue #18](https://github.com/Kcornett533/mgt3745-team-beta/issues/18)
 - Deployed Worker: none, because F-02 has no AI behavior
 
 ## Hours
 
-27.5 hours in total: 21.4 for the two builder runs and screenshots, 3.2 for the shared test and the judgment eval, 2.9 for EVALS.md, COMPARISON.md, and this README.
+26.0 hours in total, matching the DDRs: 9.0 for the bolt.new run, 6.7 for the AI Studio run, 10.0 for Claude's help with the evals and write-up, and 0.3 for the blind second grader.
 
 ## AI Use
 
 - **bolt.new**: generated the first build from `prompts/PROMPT.md`. [docs/DDR-001.md](docs/DDR-001.md)
 - **Google AI Studio**: generated the second build from the same prompt. [docs/DDR-002.md](docs/DDR-002.md)
-- **Claude (claude.ai)**: helped me read the two builds, write the wrapper files in `evals/impl/` and `evals/shared.test.js`, and draft the wording of EVALS.md, COMPARISON.md, JUDGMENT.md, and this README. I checked its line references and test results against the files myself and rewrote parts. It was also my second grader for the judgment eval, after it had seen my comparison, so that eval is not blind. [docs/DDR-003.md](docs/DDR-003.md)
+- **Claude (claude.ai)**: helped me read the two builds, write the wrapper files in `evals/impl/` and `evals/shared.test.js`, and draft the wording of EVALS.md, COMPARISON.md, JUDGMENT.md, and this README. I checked its line references and test results against the files myself and rewrote parts. [docs/DDR-003.md](docs/DDR-003.md)
+- **Claude (separate session)**: graded the two builds blind for the judgment eval, seeing only the evidence files and none of my write-up. Agreement 11 of 12. [docs/DDR-004.md](docs/DDR-004.md)

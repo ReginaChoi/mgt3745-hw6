@@ -26,7 +26,7 @@ Size for scale: bolt App.tsx is 346 lines and its edge function is 127. AI Studi
 
 ## Judgment Eval
 
-Agreement rate with the second grader: 12 of 12 items, 100%. The second grader was Claude, which had also helped write this file, so it was not blind and the 100% should be read with that in mind. Details in [JUDGMENT.md](JUDGMENT.md).
+Agreement rate with the second grader: 11 of 12 items, 92%. The second grader was a separate Claude session that saw only the evidence files (code, screenshots, FEATURES.md, ARCHITECTURE.md) and none of my write-up. We split on J3 only. Details in [JUDGMENT.md](JUDGMENT.md).
 
 ## Findings
 
@@ -63,7 +63,7 @@ I used the criteria and weights from our Gate in ARCHITECTURE.md where they appl
 | Fit to specification | 5 | Same weight as the Gate. Counted on the first output, against the four F-02 rows. |
 | Inspectability | 5 | Same weight as the Gate. A teammate has to review every line before it merges. |
 | Fit to ADR-001 stack and portability | 4 | The Gate's switching cost, weighted 4. Phase 2 has to end up on a Worker and D1. |
-| Time to working | 4 | Same weight as the Gate. This is my estimate of how much we would have to read, delete, or rewrite. I have not measured it. |
+| Time to working | 4 | Same weight as the Gate. Scored from the hours in my DDRs: how long each build took to review and fix. |
 | Scope discipline | 3 | New. FEATURES.md has an exclusions list and AI Studio ignored the spirit of it. |
 
 ### Scores (commit after the weights)
@@ -73,20 +73,24 @@ I used the criteria and weights from our Gate in ARCHITECTURE.md where they appl
 | Fit to specification | 5 | 2 (10) | 5 (25) |
 | Inspectability | 5 | 4 (20) | 2 (10) |
 | Fit to ADR-001 stack and portability | 4 | 3 (12) | 2 (8) |
-| Time to working | 4 | 4 (16) | 2 (8) |
+| Time to working | 4 | 2 (8) | 3 (12) |
 | Scope discipline | 3 | 4 (12) | 1 (3) |
-| **Weighted total** | | **70** | **54** |
+| **Weighted total** | | **62** | **58** |
 
 Notes on the scores: bolt gets a 3 on stack because its validation is two small pure functions that would move into a Worker with little change, but it brings Supabase with it. AI Studio gets a 2 because its handler is tied to Express and the file system. Bolt gets a 4 on scope instead of a 5 because of the open UPDATE and DELETE policies.
 
-Sensitivity check: if I doubled the weight on fit to specification to 10, bolt would total 80 and AI Studio 79. Bolt stays ahead, but only barely, so the ranking depends on how much the team cares about reading less code.
+Change after review: I first scored time to working 4 for bolt and 2 for AI Studio, from a guess. My own DDR hours say bolt took longer (9.0 hours against 6.7), so I changed it to 2 and 3. The weights did not change. That moved the totals from 70 to 54 to 62 to 58.
+
+Sensitivity check: bolt's lead is small. If fit to specification were weighted 7 or more, AI Studio would win. At a weight of 10, AI Studio would total 83 and bolt 72. So the recommendation depends on how much the team values reading less code over passing more rows.
 
 ### Decision
 
-I recommend that the team use bolt.new for F-02 in Phase 2, with a person fixing the status element by hand. Its server logic is short, passes the same tests as AI Studio, and would move into our Worker with little change. Its crash is one pattern in one file. AI Studio passed more rows, but to use it we would have to delete a large amount of code and replace the storage, and we would still need to read the 1,299-line client to be sure nothing else was hiding in it.
+I recommend that the team use bolt.new for F-02 in Phase 2, with a person fixing the status element by hand. The score is close (62 to 58), so this is a lean, not a clear win. Its server logic is short, passes the same tests as AI Studio, and would move into our Worker with little change. Its crash is one pattern in one file. AI Studio passed more rows, but to use it we would have to delete a large amount of code and replace the storage, and we would still need to read the 1,299-line client to be sure nothing else was hiding in it.
 
 Two things get harder with this choice. First, we cannot trust Bolt's first output for anything the user sees, so every Bolt change needs someone to open it in a browser and trigger the error states, not only read the code. Second, we give up the per-field inline warnings AI Studio already built, and have to write those ourselves in plain JavaScript. This also does not fix the larger problem: neither builder used ADR-001, so the next prompt has to include ARCHITECTURE.md and STANDARDS.md.
 
 ## Handoff to the Team
 
-Pull request or issue proposing a FEATURES.md change: https://github.com/Kcornett533/mgt3745-team-beta/issues/18
+Issue proposing FEATURES.md changes: https://github.com/Kcornett533/mgt3745-team-beta/issues/18
+
+The issue asks the team to settle four points. A comment on it gives the exact EARS rewording from the Spec Gaps table above, so the team can copy it into FEATURES.md.
