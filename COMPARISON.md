@@ -89,4 +89,4 @@ Two things get harder with this choice. First, we cannot trust Bolt's first outp
 
 ## Handoff to the Team
 
-Pull request or issue proposing a FEATURES.md change: {{TEAM_PR_URL}}
+Pull request or issue proposing a FEATURES.md change: https://github.com/Kcornett533/mgt3745-team-beta/issues/18

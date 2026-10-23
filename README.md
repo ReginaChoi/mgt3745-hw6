@@ -7,7 +7,7 @@
 **Team repository:** [Team Beta Repo](https://github.com/Kcornett533/mgt3745-team-beta)
 **Spec provenance:** copied from commit d3c4267fabcf4433c96778256640c3a07a5fd97b on 2026-10-22
 
-**Feature:** <ID and name from your team's FEATURES.md>
+**Feature:** F-02 — Strict Verification Schema & Error Gate (Must-be)
 
 ### Feature F-02: Strict Verification Schema & Error Gate (Must-be)
 *Traces to: USERS.md (JOB-03)*
@@ -53,12 +53,12 @@ This runs `evals/shared.test.js`, one `node:test` file that sends the same input
 - [builds/](builds/): bolt.zip and aistudio.zip
 - [evals/](evals/): shared test and the two copied implementations
 - [docs/DDR-001.md](docs/DDR-001.md) (bolt.new), [docs/DDR-002.md](docs/DDR-002.md) (AI Studio), [docs/DDR-003.md](docs/DDR-003.md) (Claude, for evals and write-up)
-- Team pull request or issue: {{TEAM_PR_URL}}
+- Team issue documenting F-02 specification and acceptance-test clarifications: [Issue #18](https://github.com/Kcornett533/mgt3745-team-beta/issues/18)
 - Deployed Worker: none, because F-02 has no AI behavior
 
 ## Hours
 
-{{TOTAL_HOURS}} hours in total: {{HOURS_BUILDS}} for the two builder runs and screenshots, {{HOURS_EVALS}} for the shared test and the judgment eval, {{HOURS_WRITEUP}} for EVALS.md, COMPARISON.md, and this README.
+27.5 hours in total: 21.4 for the two builder runs and screenshots, 3.2 for the shared test and the judgment eval, 2.9 for EVALS.md, COMPARISON.md, and this README.
 
 ## AI Use
 
